@@ -1,2 +1,2 @@
 # Learning-projects
-All my projects are written for educational purposes.
+All my projects that were written for educational purposes
