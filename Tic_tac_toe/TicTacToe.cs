@@ -8,8 +8,8 @@ namespace Learning_projects.Tic_tac_toe
     {
         static void Main(string[] args)
         {
-            Console.CursorVisible = false;
-            
+            Config config = new Config();
+            Console.WriteLine(config.SetConfiguration(300, 300, false));
         }
     }
 

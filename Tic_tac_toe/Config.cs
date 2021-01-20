@@ -1,44 +1,37 @@
-using System.Diagnostics;
-using System.IO.Enumeration;
+using System.Text;
 using System;
-using System.Security.AccessControl;
-using System.Net;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
+
 namespace Learning_projects.Tic_tac_toe
 {
     public class Config
-    {
-        private int width;
-        private int height;
-
-        public int Width { get; }
-        public int Height { get; }
-
-        public int Set_width()
-        {
-            return 600;
-        }
-
+    {            
+        private string path = "Config.json";
+        private string cfg = string.Empty;
         private void Check_config()
         {
-            if (!File.Exists("Config.cfg"))
-            {
-                File.Create("Config.cfg");
-                File.OpenWrite("Config.cfg");
-                
+            if (!File.Exists(path)){
+                File.Create(path);
+                object settings = new defaultSettings();
+                cfg = JsonConvert.SerializeObject(settings);
+                File.WriteAllText(path, cfg, new UTF8Encoding(false));
             }
-
-            else
-            {
-                
+            else{
+                object settings = new defaultSettings();
+                return;
             }
+                
         }
 
-        public int Set_height()
+        public string SetConfiguration(int width, int height, bool cursorVisible)
         {
-            File.OpenRead("Config.cfg");
-            return height;
+            Check_config();
+            cfg = File.ReadAllText(path, new UTF8Encoding(false));
+            return cfg;
         }
+
     }
 }
