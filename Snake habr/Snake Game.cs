@@ -1,3 +1,6 @@
+//Код честно скопирован с Хабра в ознакомительных целях
+//https://habr.com/ru/post/348262/
+
 /*using System;
 using System.Threading;
 using System.Collections.Generic;
