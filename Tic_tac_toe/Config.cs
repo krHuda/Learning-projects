@@ -8,29 +8,32 @@ using Newtonsoft.Json;
 namespace Learning_projects.Tic_tac_toe
 {
     public class Config
-    {            
+    {
         private string path = "Config.json";
         private string cfg = string.Empty;
-        private void Check_config()
+      
+        public void SetConfiguration()
         {
-            if (!File.Exists(path)){
-                File.Create(path);
-                object settings = new defaultSettings();
-                cfg = JsonConvert.SerializeObject(settings);
-                File.WriteAllText(path, cfg, new UTF8Encoding(false));
-            }
-            else{
-                object settings = new defaultSettings();
-                return;
-            }
-                
-        }
+            if (!File.Exists(path))
+            {
+                using (StreamWriter sw = File.CreateText(path))
+                {
+                    object settings = new defaultSettings();
+                    cfg = JsonConvert.SerializeObject(settings);
+                    sw.WriteLine(cfg);
+                    sw.Close();
+                }
+                Console.WriteLine("Файл настроек не найден! Сгенерированы настройки по умолчанию.");
 
-        public string SetConfiguration(int width, int height, bool cursorVisible)
-        {
-            Check_config();
-            cfg = File.ReadAllText(path, new UTF8Encoding(false));
-            return cfg;
+            }
+            else
+            {
+                string fileSettings = File.ReadAllText(path, new UTF8Encoding(false));
+                var readedSettings = JsonConvert.DeserializeObject<defaultSettings>(fileSettings);
+                Console.WriteLine("Настройки сохранены.");
+                Console.WriteLine($"Ширина = {readedSettings.Width}, Высота = {readedSettings.Height}, Видимость курсора = {readedSettings.CursorVisible}");
+            }
+            //return true;
         }
 
     }
