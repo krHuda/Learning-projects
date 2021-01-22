@@ -11,7 +11,7 @@ namespace Learning_projects.Tic_tac_toe
     {
         private string path = "Config.json";
         private string cfg = string.Empty;
-      
+
         public void SetConfiguration()
         {
             if (!File.Exists(path))
@@ -30,11 +30,14 @@ namespace Learning_projects.Tic_tac_toe
             {
                 string fileSettings = File.ReadAllText(path, new UTF8Encoding(false));
                 var readedSettings = JsonConvert.DeserializeObject<defaultSettings>(fileSettings);
-                Console.WriteLine("Настройки сохранены.");
-                Console.WriteLine($"Ширина = {readedSettings.Width}, Высота = {readedSettings.Height}, Видимость курсора = {readedSettings.CursorVisible}");
+                Console.WriteLine("Файл настроек загружен.");
+                Console.WriteLine($"Ширина = {defaultSettings.Width}, Высота = {defaultSettings.Height}, Видимость курсора = {defaultSettings.CursorVisible}");
             }
-            //return true;
         }
+
+        /*public (int width, int height) GetConfiguration(){
+            return (defaultSettings.Height, defaultSettings.Width);
+        }*/
 
     }
 }

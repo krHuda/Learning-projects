@@ -7,7 +7,11 @@ namespace Learning_projects.Tic_tac_toe
     {
         static void Main(string[] args)
         {
+            Console.CursorVisible = false;
             new Config().SetConfiguration();
+            Render render = new Render();
+            render.Border(defaultSettings.Width, defaultSettings.Height);
+            Console.ReadKey();
         }
     }
 
