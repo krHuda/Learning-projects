@@ -1,18 +1,17 @@
-using System;
-using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace Learning_projects.Tic_tac_toe
 {
+    /// <summary>
+    /// Данный класс хранит настройки консоли
+    /// </summary>
     internal sealed class defaultSettings
     {
         [JsonProperty("Width")]
         static public int Width { get; private set; }
         [JsonProperty("Height")]
         static public int Height { get; private set; }
-        [JsonProperty("CursorVisible")]
+        [JsonProperty("CursorVisible")] //ToDo: Данный параметр по дефолту должен быть равен false, его надо заменить на другие настройки, такие как цвет консоли
         static public bool CursorVisible { get; private set; }
 
 
@@ -25,8 +24,8 @@ namespace Learning_projects.Tic_tac_toe
 
         public defaultSettings()
         {
-            Width = 900;
-            Height = 900;
+            Width = 70;
+            Height = 70;
             CursorVisible = false;
         }
 

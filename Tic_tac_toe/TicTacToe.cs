@@ -7,10 +7,15 @@ namespace Learning_projects.Tic_tac_toe
     {
         static void Main(string[] args)
         {
-            Console.CursorVisible = false;
             new Config().SetConfiguration();
+            //Console.SetWindowSize(defaultSettings.Width + 1, defaultSettings.Height + 1);
+            //Console.SetBufferSize(defaultSettings.Width + 1, defaultSettings.Height + 1);
+            //Console.CursorVisible = false;
             Render render = new Render();
-            render.Border(defaultSettings.Width, defaultSettings.Height);
+            render.DrawBorder(defaultSettings.Width, defaultSettings.Height);
+            render.DrawGridHorizontal(defaultSettings.Width, defaultSettings.Height); //Метод вызывается тут для теста, должен вызываться после старта игры.
+            render.DrawGridVertical(defaultSettings.Width, defaultSettings.Height); //Метод вызывается тут для теста, должен вызываться после старта игры.
+            //render.DrawX(defaultSettings.Width, defaultSettings.Height); //Метод вызывается тут для теста, должен вызываться логикой игры (ещё не реализованна).
             Console.ReadKey();
         }
     }

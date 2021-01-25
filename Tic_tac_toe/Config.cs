@@ -1,8 +1,6 @@
 using System.Text;
 using System;
 using System.IO;
-using System.Xml;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
 
 namespace Learning_projects.Tic_tac_toe
@@ -12,6 +10,10 @@ namespace Learning_projects.Tic_tac_toe
         private string path = "Config.json";
         private string cfg = string.Empty;
 
+        /// <summary>
+        /// Загружает настройки из файла Config.json, если таковой существует.
+        /// Если файла настроек нет, то генерируется файл с настройками по умолчанию
+        /// </summary>
         public void SetConfiguration()
         {
             if (!File.Exists(path))
@@ -34,10 +36,6 @@ namespace Learning_projects.Tic_tac_toe
                 Console.WriteLine($"Ширина = {defaultSettings.Width}, Высота = {defaultSettings.Height}, Видимость курсора = {defaultSettings.CursorVisible}");
             }
         }
-
-        /*public (int width, int height) GetConfiguration(){
-            return (defaultSettings.Height, defaultSettings.Width);
-        }*/
 
     }
 }
