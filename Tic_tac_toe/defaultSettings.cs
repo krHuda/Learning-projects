@@ -24,8 +24,8 @@ namespace Learning_projects.Tic_tac_toe
 
         public defaultSettings()
         {
-            Width = 70;
-            Height = 70;
+            Width = 30;
+            Height = 30;
             CursorVisible = false;
         }
 

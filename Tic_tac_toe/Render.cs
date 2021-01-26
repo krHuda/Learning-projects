@@ -59,7 +59,7 @@ namespace Learning_projects.Tic_tac_toe
             DrawHorizontal(horizontalBorder, width, 0);
 
             Console.SetCursorPosition(width, 0);
-            Console.Write('┐'); //╭ ╮ ╯ ╰ // ┌ ┐ └ ┘ //Разные варианты углов
+            Console.Write('┐'); //╭ ╮ ╰ ╯// ┌ ┐ └ ┘ //Разные варианты углов
 
             Console.SetCursorPosition(width, height);
             Console.Write('┘');
@@ -82,7 +82,7 @@ namespace Learning_projects.Tic_tac_toe
             height *= 2;
             DrawHorizontal(horizontalBorder, width, height, 1, 0);
         }
-        
+
         /// <summary>
         /// Данный метод отрисовывает сетку по вертикали.
         /// </summary>
@@ -95,14 +95,49 @@ namespace Learning_projects.Tic_tac_toe
             DrawVertical(verticalBorder, width, height, 0, 1);
         }
 
-        public void DrawX(int width, int height) //ToDo Реализовать получение координат блока и рисовку крестика.
+        public void DrawX(int firstX, int secondX, int firstY, int secondY) //ToDo Реализовать получение координат блока и рисовку крестика.
         {
-            
+            firstX /= 3;
+            secondX /= 3;
+            int horizontalOfset = 1;
+            int verticalOfset = 1;
+            for (int x = firstX, y = firstY - verticalOfset; x <= secondX & y < secondY & y > 0; x++, y--)
+            {
+                Console.SetCursorPosition(x + horizontalOfset, y);
+                Console.Write('/');
+            }
+
+            /*for (int x = 0, y = 0; x < width & y < height; x++, y++)
+            {
+                Console.SetCursorPosition(x + horizontalOfset, y);
+                Console.Write('\\');
+            }*/
         }
 
         public void DrawO(int width, int height) //ToDo Реализовать получение координат блока и рисовку нолика.
         {
-        
+
         }
+
+        public void StartScreen()
+        {
+            DrawBorder(defaultSettings.Width, defaultSettings.Height);
+            Console.SetCursorPosition(5, 5);
+            Console.Write("Привет"); //ToDo Реализовать меню
+        }
+
+        public void WinScreen()
+        {
+
+        }
+
+        public void GameScreen()
+        {
+            Console.Clear();
+            DrawBorder(defaultSettings.Width, defaultSettings.Height);
+            DrawGridHorizontal(defaultSettings.Width, defaultSettings.Height);
+            DrawGridVertical(defaultSettings.Width, defaultSettings.Height);
+        }
+
     }
 }
