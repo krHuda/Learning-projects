@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Learning_projects.Tic_tac_toe
 {
@@ -14,7 +15,6 @@ namespace Learning_projects.Tic_tac_toe
         [JsonProperty("CursorVisible")] //ToDo: Данный параметр по дефолту должен быть равен false, его надо заменить на другие настройки, такие как цвет консоли
         static public bool CursorVisible { get; private set; }
 
-
         public defaultSettings(int width, int height, bool cursorVisible)
         {
             Width = width;
@@ -24,8 +24,8 @@ namespace Learning_projects.Tic_tac_toe
 
         public defaultSettings()
         {
-            Width = 30;
-            Height = 30;
+            Width = 60;
+            Height = 60;
             CursorVisible = false;
         }
 

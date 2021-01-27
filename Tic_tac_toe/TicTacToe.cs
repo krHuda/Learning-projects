@@ -19,14 +19,9 @@ namespace Learning_projects.Tic_tac_toe
                 Console.WriteLine(e.Message);
             }
 
-            Console.CursorVisible = true;
+            Console.CursorVisible = false;
 
             GameLogic game = new GameLogic();
-            Render render = new Render();
-            /*render.DrawBorder(defaultSettings.Width, defaultSettings.Height);
-            render.DrawGridHorizontal(defaultSettings.Width, defaultSettings.Height);
-            render.DrawGridVertical(defaultSettings.Width, defaultSettings.Height);
-            render.DrawX(defaultSettings.Width, defaultSettings.Height);*/
             game.StartGame();
             Console.ReadKey();
         }

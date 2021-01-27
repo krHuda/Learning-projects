@@ -8,7 +8,7 @@ namespace Learning_projects.Tic_tac_toe
         private char horizontalBorder = '─';
 
         /// <summary>
-        /// Данный метод рисует заданным символом в заданных координатах
+        /// Данный метод рисует заданным символом в заданных координатах по горизонтали
         /// </summary>
         private static void DrawHorizontal(char symbol, int width, int height, int horizontalOfset = 0, int verticalOfset = 0)
         {
@@ -28,6 +28,9 @@ namespace Learning_projects.Tic_tac_toe
             }
         }
 
+        /// <summary>
+        /// Данный метод рисует заданным символом в заданных координатах по вертикали
+        /// </summary>
         private static void DrawVertical(char symbol, int width, int height, int horizontalOfset = 0, int verticalOfset = 0)
         {
             try
@@ -95,23 +98,27 @@ namespace Learning_projects.Tic_tac_toe
             DrawVertical(verticalBorder, width, height, 0, 1);
         }
 
-        public void DrawX(int firstX, int secondX, int firstY, int secondY) //ToDo Реализовать получение координат блока и рисовку крестика.
+        public void DrawX(int[] coordinates) //ToDo Реализовать получение координат блока и рисовку крестика.
         {
-            firstX /= 3;
-            secondX /= 3;
-            int horizontalOfset = 1;
-            int verticalOfset = 1;
-            for (int x = firstX, y = firstY - verticalOfset; x <= secondX & y < secondY & y > 0; x++, y--)
+            int firstX = coordinates[0];
+            int secondX = coordinates[1];
+            int firstY = coordinates[2];
+            int secondY = coordinates[3];
+            
+            int xOfsett = 1;
+            int yOfsett = 1;
+
+            for (int x = firstX + xOfsett, y = firstY - yOfsett; x < secondX & y > secondY & y > 0; x++, y--)
             {
-                Console.SetCursorPosition(x + horizontalOfset, y);
+                Console.SetCursorPosition(x, y);
                 Console.Write('/');
             }
 
-            /*for (int x = 0, y = 0; x < width & y < height; x++, y++)
+            for (int x = firstX + xOfsett, y = secondY + yOfsett; x < secondX & y < firstY; x++, y++)
             {
-                Console.SetCursorPosition(x + horizontalOfset, y);
+                Console.SetCursorPosition(x, y);
                 Console.Write('\\');
-            }*/
+            }
         }
 
         public void DrawO(int width, int height) //ToDo Реализовать получение координат блока и рисовку нолика.
@@ -122,8 +129,8 @@ namespace Learning_projects.Tic_tac_toe
         public void StartScreen()
         {
             DrawBorder(defaultSettings.Width, defaultSettings.Height);
-            Console.SetCursorPosition(5, 5);
-            Console.Write("Привет"); //ToDo Реализовать меню
+            Console.SetCursorPosition(defaultSettings.Width / 4, defaultSettings.Height / 2);
+            Console.Write("Привет, нажми 3 на нумпаде чтобы начать"); //ToDo Реализовать меню
         }
 
         public void WinScreen()
@@ -133,10 +140,13 @@ namespace Learning_projects.Tic_tac_toe
 
         public void GameScreen()
         {
-            Console.Clear();
             DrawBorder(defaultSettings.Width, defaultSettings.Height);
             DrawGridHorizontal(defaultSettings.Width, defaultSettings.Height);
             DrawGridVertical(defaultSettings.Width, defaultSettings.Height);
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            DrawX(new GameLogic().GetCoordinates(defaultSettings.Width, defaultSettings.Height, key));
+            DrawX(new GameLogic().GetCoordinates(defaultSettings.Width, defaultSettings.Height, key));
+            Console.ReadKey();
         }
 
     }
