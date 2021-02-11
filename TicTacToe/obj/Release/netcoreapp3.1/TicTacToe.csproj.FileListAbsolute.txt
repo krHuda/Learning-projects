@@ -1,0 +1,13 @@
+D:\Software\GitRepos\Learning-projects\TicTacToe\bin\Release\netcoreapp3.1\TicTacToe.exe
+D:\Software\GitRepos\Learning-projects\TicTacToe\bin\Release\netcoreapp3.1\TicTacToe.deps.json
+D:\Software\GitRepos\Learning-projects\TicTacToe\bin\Release\netcoreapp3.1\TicTacToe.runtimeconfig.json
+D:\Software\GitRepos\Learning-projects\TicTacToe\bin\Release\netcoreapp3.1\TicTacToe.runtimeconfig.dev.json
+D:\Software\GitRepos\Learning-projects\TicTacToe\bin\Release\netcoreapp3.1\TicTacToe.dll
+D:\Software\GitRepos\Learning-projects\TicTacToe\bin\Release\netcoreapp3.1\TicTacToe.pdb
+D:\Software\GitRepos\Learning-projects\TicTacToe\obj\Release\netcoreapp3.1\TicTacToe.csprojAssemblyReference.cache
+D:\Software\GitRepos\Learning-projects\TicTacToe\obj\Release\netcoreapp3.1\TicTacToe.AssemblyInfoInputs.cache
+D:\Software\GitRepos\Learning-projects\TicTacToe\obj\Release\netcoreapp3.1\TicTacToe.AssemblyInfo.cs
+D:\Software\GitRepos\Learning-projects\TicTacToe\obj\Release\netcoreapp3.1\TicTacToe.csproj.CoreCompileInputs.cache
+D:\Software\GitRepos\Learning-projects\TicTacToe\obj\Release\netcoreapp3.1\TicTacToe.dll
+D:\Software\GitRepos\Learning-projects\TicTacToe\obj\Release\netcoreapp3.1\TicTacToe.pdb
+D:\Software\GitRepos\Learning-projects\TicTacToe\obj\Release\netcoreapp3.1\TicTacToe.genruntimeconfig.cache
