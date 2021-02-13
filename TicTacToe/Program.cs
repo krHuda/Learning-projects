@@ -14,17 +14,41 @@ namespace TicTacToe
                 size = value;
             }
         }
-        int size = 0;
+        public int Count
+        {
+            get
+            {
+                return count;
+            }
+            private set
+            {
+                count = value;
+            }
+        }
+        public char Winner
+        {
+            get
+            {
+                return winner;
+            }
+            private set
+            {
+                winner = value;
+            }
+        }
+        int size = 0, count = 0, pos = 0;
         bool move;
-        int[,] cells = new int[10, 10];
-        public void StartGame()     //Начало игры
+        char winner = ' ';
+        char[,] cells = new char[10, 10];
+        public void StartGame()             //Начало игры
         {
             move = true;
-            GetSize();
+            // GetSize();
+            size = 3;
             SetNull();
             DrawField();
         }
-        void GetSize()              //Получить размер поля; проверить на целое число больше 3.
+        void GetSize()                      //Получить размер поля; проверить на целое число больше 3.
         {
             string s;
             bool isNum = false;
@@ -42,7 +66,13 @@ namespace TicTacToe
                 }
             }
         }
-        void DrawField()           //Рисует игровое поле
+        public void GetPosition()
+        {
+            Console.WriteLine("Enter position: ");
+            pos = Convert.ToInt32(Console.ReadLine());
+            MakeMove();
+        }
+        void DrawField()                     //Рисует игровое поле
         {
             Console.Clear();
             for (int i = 0; i < size; i++)
@@ -54,43 +84,79 @@ namespace TicTacToe
                 Console.WriteLine();
             }
         }
-        void SetNull()              //Очищает игровое поле
+        void SetNull()                      //Очищает игровое поле
         {
+            count = 0;
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
-                    cells[i, j] = 0;
+                    cells[i, j] = ' ';
                 }
             }
         }
-        public void MakeMove(int pos)
+        void MakeMove()       //Сделать ход по координатам, введённым пользователем
         {
             int i, j;
+            count++;
             i = (pos / 10) - 1;
             j = (pos % 10) - 1;
             if (move)
-                cells[i, j] = 1;
+                cells[i, j] = 'X';
             else
-                cells[i, j] = 2;
+                cells[i, j] = 'O';
             move = !move;
-            DrawField();
+            DrawField();            //Отрисовка поля после хода
+                              //Проверка на ничью
+        }
+        public bool CheckDraw()           //Проверка на ничью
+        {
+            if (count >= size * size)
+                return true;
+            else
+                return false;
+        }
+        void GetWinner()            //Устанавливает, кто победил
+        {
+            if (move)
+                winner = 'O';
+            else
+                winner = 'X';
+        }
+        public bool EoG()           //Проверка на конец игры
+        {
+            if (WinCombination())
+            {
+                GetWinner();
+                Console.WriteLine("The winner is {0}", winner);
+                return true;
+            }
+            else
+            if (CheckDraw())
+            {
+                Console.WriteLine("Game draw");
+                return true;
+            }
+            else
+                return false;
+        }
+        bool WinCombination()             //Поставить проверку поля на наличие выиграшных комбинаций
+        {
+            return false;
         }
     }
     class Game
     {
         static void Main()
         {
-            int pos;
-            int i = 0;
             Field f = new Field();
             f.StartGame();
-            while (i < (f.Size * f.Size))
+            while (true)
             {
-                Console.WriteLine("Enter position: ");
-                pos = Convert.ToInt32(Console.ReadLine());
-                f.MakeMove(pos);
-                i++;
+                Console.WriteLine("Move number is {0}", f.Count+1);
+                f.GetPosition();                                         //Получить адрес клетки и сделать ход
+                if (f.EoG())
+                    break;
             }
             Console.WriteLine("Thanks for the game :)");
         }
