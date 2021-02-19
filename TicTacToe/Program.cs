@@ -43,7 +43,7 @@ namespace TicTacToe
         public void StartGame()             //Начало игры
         {
             move = true;
-            // GetSize();
+            //GetSize();
             size = 3;
             SetNull();
             DrawField();
@@ -142,7 +142,19 @@ namespace TicTacToe
         }
         bool WinCombination()             //Поставить проверку поля на наличие выиграшных комбинаций
         {
-            return false;
+            int win = 0;
+            for (int i = 0; i < size-1; i++)
+            {
+                for (int j = 0; j < size-1; j++)
+                {
+                    if (cells[i, j] == cells[i + 1, j + 1]&&(cells[i,j]!= ' '))
+                        win++;
+                }
+            }
+            if (win > size-2)
+                return true;
+            else
+                return false;
         }
     }
     class Game

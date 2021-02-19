@@ -1,11 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5OIrvaCt8DqAT70tH0HlWS1AwSmr7a3sxipzNbq2WS7GjDn/K2fYYE9TPnxL5qCmzlT5u8JvZ46S1jGSLDt3XQ==",
+  "dgSpecHash": "gg3y2PXKQXDEq9ivVxhmmDAIhNMSxhE0enJVOKc8ehpYHaYpToe5i/1S+/jKczJe8pel9tLnB3L4H5rQkSc9fw==",
   "success": true,
   "projectFilePath": "D:\\Software\\GitRepos\\Learning-projects\\TicTacToe\\TicTacToe.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\serio\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.10\\microsoft.aspnetcore.app.ref.3.1.10.nupkg.sha512",
-    "C:\\Users\\serio\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.10\\microsoft.netcore.app.host.win-x64.3.1.10.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
