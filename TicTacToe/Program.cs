@@ -142,15 +142,30 @@ namespace TicTacToe
         bool WinCombination()             //Поставить проверку поля на наличие выиграшных комбинаций
         {
             int winD = 0;
-            for (int i = 0; i < size-1; i++)
+            int winCX = 0, winCO = 0;
+            for (int i = 0; i < size; i++)
             {
-                for (int j = 0; j < size-1; j++)
+                if (cells[i, i] == cells[i + 1, i + 1] && (cells[i,i]!= ' ')) //Диагональ
+                    winD++;
+            }
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
                 {
-                    if (cells[i, j] == cells[i + 1, j + 1]&&(cells[i,j]!= ' ')) //Диагональ
-                        winD++;
+                    if (cells[i, j] == 'X')
+                        winCX++;
+                    else if (cells[i, j] == 'O')
+                        winCO++;
+                }
+                if ((winCX == size) | (winCO == size))
+                    return true;
+                else
+                {
+                    winCX = 0;
+                    winCO = 0;
                 }
             }
-            if (winD > size-2)
+            if (winD > size - 2)
                 return true;
             else
                 return false;
