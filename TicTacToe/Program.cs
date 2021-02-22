@@ -43,8 +43,8 @@ namespace TicTacToe
         public void StartGame()             //Начало игры
         {
             move = true;
-            //GetSize();
-            size = 3;
+            GetSize();
+            //size = 3;
             SetNull();
             DrawField();
         }
@@ -116,19 +116,18 @@ namespace TicTacToe
             else
                 return false;
         }
-        void GetWinner()            //Устанавливает, кто победил
+        char GetWinner()            //Устанавливает, кто победил
         {
             if (move)
-                winner = 'O';
+                return 'O';
             else
-                winner = 'X';
+                return 'X';
         }
         public bool EoG()           //Проверка на конец игры
         {
             if (WinCombination())
             {
-                GetWinner();
-                Console.WriteLine("The winner is {0}", winner);
+                Console.WriteLine("The winner is {0}", GetWinner());
                 return true;
             }
             else
@@ -142,16 +141,16 @@ namespace TicTacToe
         }
         bool WinCombination()             //Поставить проверку поля на наличие выиграшных комбинаций
         {
-            int win = 0;
+            int winD = 0;
             for (int i = 0; i < size-1; i++)
             {
                 for (int j = 0; j < size-1; j++)
                 {
-                    if (cells[i, j] == cells[i + 1, j + 1]&&(cells[i,j]!= ' '))
-                        win++;
+                    if (cells[i, j] == cells[i + 1, j + 1]&&(cells[i,j]!= ' ')) //Диагональ
+                        winD++;
                 }
             }
-            if (win > size-2)
+            if (winD > size-2)
                 return true;
             else
                 return false;
