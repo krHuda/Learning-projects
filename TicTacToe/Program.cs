@@ -14,17 +14,6 @@ namespace TicTacToe
                 size = value;
             }
         }
-        public int Count
-        {
-            get
-            {
-                return count;
-            }
-            private set
-            {
-                count = value;
-            }
-        }
         public char Winner
         {
             get
@@ -44,7 +33,6 @@ namespace TicTacToe
         {
             move = true;
             GetSize();
-            //size = 3;
             SetNull();
             DrawField();
         }
@@ -58,7 +46,7 @@ namespace TicTacToe
                 Console.WriteLine("Welcome to the game\nWrite field size: ");
                 s = Console.ReadLine();
                 isNum = int.TryParse(s, out size);
-                if (size < 3)
+                if ((size < 3) || (size > 10))
                 {
                     isNum = false;
                     Console.WriteLine("Your digit is too small or not simple.\nPress any key to continue.");
@@ -68,9 +56,10 @@ namespace TicTacToe
         }
         public void GetPosition()
         {
+            Console.WriteLine("Move number is {0}", count + 1);
             Console.WriteLine("Enter position: ");
-            pos = Convert.ToInt32(Console.ReadLine());
-            MakeMove();
+            MakeMove(Console.ReadLine());
+            
         }
         void DrawField()                     //Рисует игровое поле
         {
@@ -95,19 +84,42 @@ namespace TicTacToe
                 }
             }
         }
-        void MakeMove()       //Сделать ход по координатам, введённым пользователем
+        void MakeMove(string position)       //Сделать ход по координатам, введённым пользователем
         {
             int i, j;
-            count++;
-            i = (pos / 10) - 1;
-            j = (pos % 10) - 1;
-            if (move)
-                cells[i, j] = 'X';
+            if (int.TryParse(position, out pos))
+            {
+                i = (pos / 10) - 1;
+                j = (pos % 10) - 1;
+                if (((i > 0) && (j > 0) && (i < size) && (j < size)) && CheckCells(i, j))
+                {
+                    count++;
+                    if (move)
+                        cells[i, j] = 'X';
+                    else
+                        cells[i, j] = 'O';
+                    move = !move;
+                    DrawField();            //Отрисовка поля после хода
+                                            //Проверка на ничью
+                }
+                else
+                {
+                    DrawField();
+                    Console.WriteLine("Another try");
+                }
+            }
             else
-                cells[i, j] = 'O';
-            move = !move;
-            DrawField();            //Отрисовка поля после хода
-                              //Проверка на ничью
+            {
+                DrawField();
+                Console.WriteLine("Another try");
+            }
+        }
+        bool CheckCells(int i, int j)
+        {
+            if (cells[i, j] == ' ')
+                return true;
+            else
+                return false;
         }
         public bool CheckDraw()           //Проверка на ничью
         {
@@ -141,20 +153,70 @@ namespace TicTacToe
         }
         bool WinCombination()             //Поставить проверку поля на наличие выиграшных комбинаций
         {
+            if (WinMainDiagonal()||WinSecondDiagonal()||WinRows()||WinColumns())
+                return true;
+            else
+                return false;
+
+        }
+        bool WinMainDiagonal()
+        {
             int winD = 0;
-            int winCX = 0, winCO = 0;
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < size - 1; i++)
             {
-                if (cells[i, i] == cells[i + 1, i + 1] && (cells[i,i]!= ' ')) //Диагональ
+                if (cells[i, i] == cells[i + 1, i + 1] && (cells[i, i] != ' ')) //Диагональ
                     winD++;
             }
+            if (winD > size - 2)
+                return true;
+            else
+                return false;
+        }
+        bool WinSecondDiagonal()
+        {
+            int winD = 0;
+            for (int i = 0; i < size - 1; i++)
+            {
+                if (cells[i, size - i - 1] == cells[i + 1, size - i - 2] && (cells[i, size - i - 1] != ' '))
+                    winD++;
+            }
+            if (winD > size - 2)
+                return true;
+            else
+                return false;
+        }
+        bool WinRows()
+        {
+            int winRX = 0, winRO = 0;
             for (int i = 0; i < size; i++)
             {
                 for (int j = 0; j < size; j++)
                 {
                     if (cells[i, j] == 'X')
-                        winCX++;
+                        winRX++;
                     else if (cells[i, j] == 'O')
+                        winRO++;
+                }
+                if ((winRX == size) | (winRO == size))
+                    return true;
+                else
+                {
+                    winRX = 0;
+                    winRO = 0;
+                }
+            }
+            return false;
+        }
+        bool WinColumns()
+        {
+            int winCX = 0, winCO = 0;
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (cells[j, i] == 'X')
+                        winCX++;
+                    else if (cells[j, i] == 'O')
                         winCO++;
                 }
                 if ((winCX == size) | (winCO == size))
@@ -165,13 +227,11 @@ namespace TicTacToe
                     winCO = 0;
                 }
             }
-            if (winD > size - 2)
-                return true;
-            else
-                return false;
+            return false;
         }
     }
-    class Game
+}
+ /*   class Game
     {
         static void Main()
         {
@@ -187,4 +247,4 @@ namespace TicTacToe
             Console.WriteLine("Thanks for the game :)");
         }
     }
-}
+ */
