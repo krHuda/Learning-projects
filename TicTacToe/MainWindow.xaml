@@ -1,0 +1,67 @@
+﻿<Window x:Class="TicTacToe.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TicTacToe"
+        mc:Ignorable="d"
+        Title="TicTacToe" Height="300" Width="300" ResizeMode="NoResize" MinHeight="300" MinWidth="300" Icon="Resources/App_Icon.jpg">
+    <Grid x:Name="MainRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition MaxHeight="25" Height="Auto">
+            </RowDefinition>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Name="Turn" Text="Turn: " FontSize="15" Width="100" TextAlignment="Left" HorizontalAlignment="Center" Padding="2"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Name="Score" Text="Score: X- O-" FontSize="15" Width="100" TextAlignment="Left" HorizontalAlignment="Center" Padding="2"></TextBlock>
+        <Button Grid.Row="0" Grid.Column="2" Name="RestartButton" Click="RestartGame" FontSize="15" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="50"></Setter>
+                </Style>
+            </Button.Resources>
+            <Ellipse Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{StaticResource Restart}" AlignmentX="Center" AlignmentY="Center"/>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="0" Click="OnClick" ClickMode="Release" Tag="8" MinWidth="20" MinHeight="20">
+            <Image/>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="1" Click="OnClick" ClickMode="Release" Tag="1" MinWidth="20" MinHeight="20">
+            <Image/>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="2" Click="OnClick" ClickMode="Release" Tag="6" MinWidth="20" MinHeight="20">
+            <Image/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="0" Click="OnClick" ClickMode="Release" Tag="3" MinWidth="20" MinHeight="20">
+            <Image/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="1" Click="OnClick" ClickMode="Release" Tag="5" MinWidth="20" MinHeight="20">
+            <Image/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="2" Click="OnClick" ClickMode="Release" Tag="7" MinWidth="20" MinHeight="20">
+            <Image/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="0" Click="OnClick" ClickMode="Release" Tag="4" MinWidth="20" MinHeight="20">
+            <Image/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="1" Click="OnClick" ClickMode="Release" Tag="9" MinWidth="20" MinHeight="20">
+            <Image/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="2" Click="OnClick" ClickMode="Release" Tag="2" MinWidth="20" MinHeight="20">
+            <Image/>
+        </Button>
+        <Popup Grid.Row="0" Grid.Column="0">
+            <TextBlock>Game over</TextBlock>
+        </Popup>
+    </Grid>
+</Window>

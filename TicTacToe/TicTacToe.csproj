@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\Cross_Icon.jpg" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\67345.png" />
+      <Resource Include="Resources\Cross_Icon.png" />
+      <None Remove="Resources\Circle.png" />
+      <Resource Include="Resources\Circle.png" />
+      <None Remove="Resources\Restart_icon.png" />
+      <Resource Include="Resources\Restart_icon.png" />
+      <None Remove="Resources\ring_PNG115.png" />
+      <Resource Include="Resources\Circle_black.png" />
+      <None Remove="Resources\Logo_Icon.png" />
+      <Resource Include="Resources\Logo_Icon.png" />
+      <None Remove="Resources\krestiki-noliki..256x256_q85_background-#ffffff.jpg" />
+      <None Remove="Resources\2158-01.jpg" />
+      <None Remove="Resources\123.jpg" />
+      <None Remove="Resources\132.jpg" />
+      <None Remove="Resources\321.jpg" />
+      <Resource Include="Resources\App_Icon.jpg" />
+      <None Remove="Resources\Restart.png" />
+      <Resource Include="Resources\Restart.png" />
+      <None Remove="Resources\1.png" />
+      <Resource Include="Resources\1.png" />
+      <None Remove="Resources\Power - Restart.png" />
+      <Resource Include="Resources\Power - Restart.png" />
+    </ItemGroup>
+
+</Project>
