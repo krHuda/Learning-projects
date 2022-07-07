@@ -6,6 +6,6 @@
     <Application.Resources>
         <ImageSource x:Key="Cross">Resources/Cross_Icon.png</ImageSource>
         <ImageSource x:Key="Circle">Resources/Circle.png</ImageSource>
-        <ImageSource x:Key="Restart">Resources/Power - Restart.png</ImageSource>
+        <ImageSource x:Key="Restart">Resources/Restart_icon.png</ImageSource>
     </Application.Resources>
 </Application>

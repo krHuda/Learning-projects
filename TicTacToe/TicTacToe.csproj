@@ -2,8 +2,8 @@
 
     <PropertyGroup>
         <OutputType>WinExe</OutputType>
-        <TargetFramework>net5.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
+        <TargetFramework>net5.0-windows</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,7 +20,6 @@
       <None Remove="Resources\ring_PNG115.png" />
       <Resource Include="Resources\Circle_black.png" />
       <None Remove="Resources\Logo_Icon.png" />
-      <Resource Include="Resources\Logo_Icon.png" />
       <None Remove="Resources\krestiki-noliki..256x256_q85_background-#ffffff.jpg" />
       <None Remove="Resources\2158-01.jpg" />
       <None Remove="Resources\123.jpg" />
@@ -28,9 +27,7 @@
       <None Remove="Resources\321.jpg" />
       <Resource Include="Resources\App_Icon.jpg" />
       <None Remove="Resources\Restart.png" />
-      <Resource Include="Resources\Restart.png" />
       <None Remove="Resources\1.png" />
-      <Resource Include="Resources\1.png" />
       <None Remove="Resources\Power - Restart.png" />
       <Resource Include="Resources\Power - Restart.png" />
     </ItemGroup>
