@@ -10,13 +10,21 @@ namespace TicTacToe
 {
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Стартовая функция.
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
             GameLogic.Start();
             SetTurnText();
+            SetScoreText();
         }
 
+        /// <summary>
+        /// Метод вызваемый при нажатии на кнопку поля. Проверяет состояние игры и ставит крестик или нолик в зависимости от очерёдности хода.
+        /// </summary>
+        /// <exception cref="NotImplementedException">Исключение, которое кидается в случае, если игра сломается и выйде за пределы возможного хода.</exception>
         private void OnClick(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -40,27 +48,60 @@ namespace TicTacToe
             }
             if (GameLogic.IsGameFinished())
             {
-                MessageBoxButton messageBoxButton = MessageBoxButton.YesNo;
-                MessageBoxImage icon = MessageBoxImage.Question;
-                string messadgeBoxText = "Игра окончена. Перезапустить?";
-                string caption = "Game over";
-                var result = MessageBox.Show(messadgeBoxText, caption, messageBoxButton, icon, MessageBoxResult.Yes);
-                if (result == MessageBoxResult.Yes)
-                {
-                    RestartGame(sender, e);
-                }
-                else
-                {
-                    Application.Current.Shutdown();
-                }
+                EndGameMessageBox(sender, e);
                 return;
             }
             GameLogic.UpdateTurn();
             SetTurnText();
         }
 
+        /// <summary>
+        /// Метод открывающий диалоговое окно окончания игры с выбором перезапуска или выхода из неё.
+        /// </summary>
+        private void EndGameMessageBox(object sender, RoutedEventArgs e)
+        {
+            var turn = GameLogic.GetTurn() == GameLogic.Turns.Cross ? "X" : "O";
+            string messageBoxText;
+            if (GameLogic.GetTurn() == GameLogic.Turns.Draw)
+            {
+                messageBoxText = "Ничья. \nПерезапустить?";
+            }
+            else
+            {
+                messageBoxText = $"Игра окончена. Выйграл: {turn}! \nПерезапустить?";
+            }
+            const MessageBoxButton messageBoxButton = MessageBoxButton.YesNo;
+            const MessageBoxImage icon = MessageBoxImage.Question;
+            const string caption = "Game over";
+            var result = MessageBox.Show(messageBoxText, caption, messageBoxButton, icon, MessageBoxResult.Yes);
+            if (result == MessageBoxResult.Yes)
+            {
+                RestartGame(sender, e);
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        /// <summary>
+        /// Выводит в текстовом поле Turn очередь хода. 
+        /// </summary>
         private void SetTurnText() => Turn.Text = GameLogic.GetTurn() == GameLogic.Turns.Cross ? "Turn: X" : "Turn: O";
 
+        /// <summary>
+        /// Выводит в текстовом поле Score счёт побед крестика и нолика.
+        /// </summary>
+        private void SetScoreText()
+        {
+            Score.Text = $"Score: X-{GameLogic.ScoreX} O-{GameLogic.ScoreO}";
+        }
+        
+        /// <summary>
+        /// Данный метод перезапускает игру по нажатии на кнопку в игре или в диалогом окне законченной игры.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RestartGame(object sender, RoutedEventArgs e)
         {
             GameLogic.Start();
@@ -73,6 +114,7 @@ namespace TicTacToe
             }
             GameLogic.FinishGame();
             SetTurnText();
+            SetScoreText();
         }
     }
 }

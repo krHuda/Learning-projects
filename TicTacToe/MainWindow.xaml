@@ -19,9 +19,9 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Name="Turn" Text="Turn: " FontSize="15" Width="100" TextAlignment="Left" HorizontalAlignment="Center" Padding="2"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" Name="Score" Text="Score: X- O-" FontSize="15" Width="100" TextAlignment="Left" HorizontalAlignment="Center" Padding="2"></TextBlock>
-        <Button Grid.Row="0" Grid.Column="2" Name="RestartButton" Click="RestartGame" FontSize="15" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock Grid.Row="0" Name="Turn" Text="Turn: " FontSize="15" Width="50" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="3"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Name="Score" Text="Score: X- O-" FontSize="15" Width="100" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch" Padding="0"></TextBlock>
+        <Button Grid.Row="0" Grid.Column="2" Name="RestartButton" Click="RestartGame" FontSize="15" Width="20" Height="20"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="50"></Setter>
