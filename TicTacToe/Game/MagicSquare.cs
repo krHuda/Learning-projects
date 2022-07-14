@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 
 namespace TicTacToe.Game
 {
@@ -9,28 +9,30 @@ namespace TicTacToe.Game
     public class MagicSquare
     {
         /// <summary>
-        /// Инициализация пустового массива для последующего заполнения цифрами в соответствии с эталонным магическим квадратом.
-        /// </summary>
-        private int[][] square =
-        {
-            new int[Constants.MagicNumbers.Length],
-            new int[Constants.MagicNumbers.Length],
-            new int[Constants.MagicNumbers.Length],
-        };
-
-        /// <summary>
         /// Свойство предоставляющее доступ к чтению магического квадрата.
         /// </summary>
-        public int[][] Square => square;
-
-        /// <summary>
-        /// Данный метод заполняет магический квадрат ходящего числом нажатой кнопки.
-        /// </summary>
-        /// <param name="index">Уникальный индекс присвоенный каждой кнопке поля в соответствии с эталонным магическим квадратом.</param>
-        public void InputNumber(int index)
+        public string[][] Square { get; } = 
         {
-            var a = IndexOf(Constants.MagicNumbers, index);
-            square[a.Item1][a.Item2] = index;
+            new string[Constants.MagicNumbers.Length],
+            new string[Constants.MagicNumbers.Length],
+            new string[Constants.MagicNumbers.Length],
+            new string[Constants.MagicNumbers.Length],
+            new string[Constants.MagicNumbers.Length]
+        };
+        
+
+        private readonly string expectedSymbol;
+
+        public MagicSquare(string expectedSymbol)
+        {
+            this.expectedSymbol = expectedSymbol;
+        }
+
+
+        public void InputSymbol(int index, string symbol)
+        {
+            (int x, int y) symbolIndex = IndexOf(Constants.MagicNumbers, index);
+            Square[symbolIndex.x][symbolIndex.y] = symbol;
         }
 
         /// <summary>
@@ -55,114 +57,119 @@ namespace TicTacToe.Game
             return (-1, -1);
         }
 
-        /// <summary>
-        /// Данный метод суммирует числа, расположенные по диагонали слева направо, в массиве массивов.
-        /// </summary>
-        /// <param name="array">Массив в котором нужно просуммировать диагональ.</param>
-        /// <returns>Сумму по диагонали слева направо.</returns>
-        private int LeftDiagonalSum(int[][] array)
+        
+        private List<bool> LeftDiagonalRow(string[][] array)
         {
-            int sum = default;
-            for (var x = 0; x < array.Length; x++)
-            {
-                sum += array[x][x];
-            }
-            return sum;
-        }
-
-        /// <summary>
-        /// Данный метод суммирует числа, расположенные по диагонали справа налево, в массиве массивов.
-        /// </summary>
-        /// <param name="array">Массив в котором нужно просуммировать диагональ.</param>
-        /// <returns>Сумму по диагонали справа налево.</returns>
-        private int RightDiagonalSum(int[][] array)
-        {
-            int sum = default;
-            for (int x = 0, y = array.Length - 1; x < array.Length; x ++, y--)
-            {
-                sum += array[x][y];
-            }
-            return sum;
-        }
-
-        /// <summary>
-        /// Данный метод суммирует числа, расположенные по строкам, в массиве массивов.
-        /// </summary>
-        /// <param name="array">Массив в котором нужно просуммировать строки.</param>
-        /// <returns>Сумму по строкам.</returns>
-        private List<int> RowsSum(int[][] array)
-        {
-            var sums = new List<int>();
+            var symbolsCount = new List<bool>();
             for (var x = 0; x < array.Length; x ++)
             {
-                int sum = default;
+                var list = new List<bool>();
                 for (var y = 0; y < array.Length; y++)
                 {
-                    sum += array[x][y];
+                    try
+                    {
+                        if (array[x][y] == expectedSymbol && array[x-1][y-1] == expectedSymbol && array[x+1][y+1] == expectedSymbol)
+                        {
+                            list.Add(true);
+                        }
+                    }
+                    catch (IndexOutOfRangeException)
+                    { }
                 }
-                sums.Add(sum);
+                symbolsCount.AddRange(list);
             }
-            return sums;
+            return symbolsCount;
         }
 
-        /// <summary>
-        /// Данный метод суммирует числа, расположенные по колонкам, в массиве массивов.
-        /// </summary>
-        /// <param name="array">Массив в котором нужно просуммировать колонки.</param>
-        /// <returns>Сумму по колонкам.</returns>
-        private List<int> ColumnsSum(int[][] array)
+        
+        private List<bool> RightDiagonalSum(string[][] array)
         {
-            var sums = new List<int>();
+            var symbolsCount = new List<bool>();
             for (var x = 0; x < array.Length; x ++)
             {
-                int sum = default;
+                var list = new List<bool>();
+                for (var y = array.Length - 1; y >= 0; y--)
+                {
+                    try
+                    {
+                        if (array[x][y] == expectedSymbol && array[x-1][y+1] == expectedSymbol && array[x+1][y-1] == expectedSymbol)
+                        {
+                            list.Add(true);
+                        }
+                    }
+                    catch (IndexOutOfRangeException)
+                    { }
+                }
+                symbolsCount.AddRange(list);
+            }
+            return symbolsCount;
+        }
+        
+
+        
+        private List<bool> RowsSum(string[][] array)
+        {
+            var symbolsCount = new List<bool>();
+            foreach (var symbol in array)
+            {
+                var list = new List<bool>();
                 for (var y = 0; y < array.Length; y++)
                 {
-                    sum += array[y][x];
+                    try
+                    {
+                        if (symbol[y] == expectedSymbol && symbol[y-1] == expectedSymbol && symbol[y+1] == expectedSymbol)
+                        {
+                            list.Add(true);
+                        }
+                    }
+                    catch (IndexOutOfRangeException)
+                    { }
                 }
-                sums.Add(sum);
+                symbolsCount.AddRange(list);
             }
-            return sums;
+            return symbolsCount;
         }
 
-        /// <summary>
-        /// Данный метод сумирует значения в масиве масивов по всем направлениям и вызвращает список сумм.
-        /// </summary>
-        /// <param name="array">Массив в котором нужно просуммировать значения во всех направлениях.</param>
-        /// <returns>Список сумм.</returns>
-        public List<int> GetSums(int[][] array)
+        
+        private List<bool> ColumnsSum(string[][] array)
         {
-            var sums = new List<int>
+            var symbolsCount = new List<bool>();
+            for (var x = 0; x < array.Length; x ++)
             {
-                LeftDiagonalSum(array),
-                RightDiagonalSum(array)
-            };
-            sums.AddRange(RowsSum(array));
-            sums.AddRange(ColumnsSum(array));
+                var list = new List<bool>();
+                for (var y = 0; y < array.Length; y++)
+                {
+                    try
+                    {
+                        if (array[x][y] == expectedSymbol && array[x-1][y] == expectedSymbol && array[x+1][y] == expectedSymbol)
+                        {
+                            list.Add(true);
+                        }
+                    }
+                    catch (IndexOutOfRangeException)
+                    { }
+                }
+                symbolsCount.AddRange(list);
+            }
+            return symbolsCount;
+        }
+        
+        
+        private List<bool> GetSums()
+        {
+            var sums = new List<bool>();
+            sums.AddRange(LeftDiagonalRow(Square));
+            sums.AddRange(RightDiagonalSum(Square));
+            sums.AddRange(RowsSum(Square));
+            sums.AddRange(ColumnsSum(Square));
             return sums;
         }
 
-        /// <summary>
-        /// Данный метод проверяет наличие ожидаемой суммы в одном из напрвлений, что означает победу одной из фигур.
-        /// </summary>
-        /// <param name="expectedSums">Ожидаемая сумма направлений.</param>
-        /// <returns>True в случае совпадения суммы с ожидаемой в одном из направлений.</returns>
-        public bool IsAllIdentical(List<int> expectedSums)
+        
+        public bool IsWinConditionAchieved(int expectedSymbolCount)
         {
-            if (IsArrayFilledByDefault(square)) return false;
-            var realSums = GetSums(square);
-            return realSums.Any(t => t == expectedSums[0]);
-        }
-    
-        /// <summary>
-        /// Проверяет наличие в массиве свободных ячеек.
-        /// </summary>
-        /// <param name="array">Проверяемый массив.</param>
-        /// <returns>True если если в массиве есть значения по умолчанию.</returns>
-        private bool IsArrayFilledByDefault(int[][] array)
-        {
-            var result = array.SelectMany(line => line).ToList();
-            return result.All(i => i == 0);
+            var realSums = GetSums();
+            return realSums.Contains(true);
         }
     }
 }

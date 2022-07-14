@@ -4,60 +4,116 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="TicTacToe" Height="300" Width="300" ResizeMode="NoResize" MinHeight="300" MinWidth="300" Icon="Resources/App_Icon.jpg">
+        Title="TicTacToe" ResizeMode="CanResize" MinHeight="505" MinWidth="505" Height="515" Width="510"
+        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"
+        Icon="Resources/App_Icon.jpg">
     <Grid x:Name="MainRoot" Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition MaxHeight="25" Height="Auto">
-            </RowDefinition>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition MaxHeight="25" />
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="100"/>
+        <Grid.ColumnDefinitions>        
+            <ColumnDefinition MinWidth="50"/>
+            <ColumnDefinition MinWidth="50"/>
+            <ColumnDefinition MinWidth="50"/>
+            <ColumnDefinition MinWidth="50"/>
+            <ColumnDefinition MinWidth="50"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Name="Turn" Text="Turn: " FontSize="15" Width="60" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="3"/>
-        <TextBlock Grid.Row="0" Grid.Column="1" Name="Score" Text="Score: X- O-" FontSize="15" Width="100" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch" Padding="0"></TextBlock>
-        <Button Grid.Row="0" Grid.Column="2" Name="RestartButton" Click="RestartGame" FontSize="15" Width="20" Height="20"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+        <TextBlock Grid.Column="0" Grid.Row="0" Name="Turn" Text="Turn: " FontSize="15" Width="60" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Center" Padding="3"/>
+        <TextBlock Grid.Row="0" Grid.Column="2" Name="Score" Text="Score: X- O-" FontSize="15" Width="100" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Stretch" Padding="0" />
+        <Button Grid.Row="0" Grid.Column="4" Name="RestartButton" Click="RestartGame" FontSize="15" Width="20" Height="20"  HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0" ClickMode="Release">
+            <Button.Background>
+                <ImageBrush ImageSource="{StaticResource Restart}" />
+            </Button.Background>
             <Button.Resources>
                 <Style TargetType="Border">
-                    <Setter Property="CornerRadius" Value="50"></Setter>
+                    <Setter Property="CornerRadius" Value="50" />
                 </Style>
             </Button.Resources>
-            <Ellipse Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!--<Ellipse Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Ellipse.Fill>
                     <ImageBrush ImageSource="{StaticResource Restart}" AlignmentX="Center" AlignmentY="Center" Stretch="Fill"/>
                 </Ellipse.Fill>
-            </Ellipse>
+            </Ellipse>-->
         </Button>
-        <Button Grid.Row="1" Grid.Column="0" Click="OnClick" ClickMode="Release" Tag="8" MinWidth="20" MinHeight="20">
-            <Image/>
+        <Button Grid.Row="1" Grid.Column="0" Click="OnClick" Name="Field17" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="1" Click="OnClick" ClickMode="Release" Tag="1" MinWidth="20" MinHeight="20">
-            <Image/>
+        <Button Grid.Row="1" Grid.Column="1" Click="OnClick" Name="Field24" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
-        <Button Grid.Row="1" Grid.Column="2" Click="OnClick" ClickMode="Release" Tag="6" MinWidth="20" MinHeight="20">
-            <Image/>
+        <Button Grid.Row="1" Grid.Column="2" Click="OnClick" Name="Field1" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
-        <Button Grid.Row="2" Grid.Column="0" Click="OnClick" ClickMode="Release" Tag="3" MinWidth="20" MinHeight="20">
-            <Image/>
+        <Button Grid.Row="1" Grid.Column="3" Click="OnClick" Name="Field8" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>          
+        </Button>                                                                     
+        <Button Grid.Row="1" Grid.Column="4" Click="OnClick" Name="Field15" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
-        <Button Grid.Row="2" Grid.Column="1" Click="OnClick" ClickMode="Release" Tag="5" MinWidth="20" MinHeight="20">
-            <Image/>
+        <Button Grid.Row="2" Grid.Column="0" Click="OnClick" Name="Field23" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
-        <Button Grid.Row="2" Grid.Column="2" Click="OnClick" ClickMode="Release" Tag="7" MinWidth="20" MinHeight="20">
-            <Image/>
+        <Button Grid.Row="2" Grid.Column="1" Click="OnClick" Name="Field5" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
-        <Button Grid.Row="3" Grid.Column="0" Click="OnClick" ClickMode="Release" Tag="4" MinWidth="20" MinHeight="20">
-            <Image/>
+        <Button Grid.Row="2" Grid.Column="2" Click="OnClick" Name="Field7" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
-        <Button Grid.Row="3" Grid.Column="1" Click="OnClick" ClickMode="Release" Tag="9" MinWidth="20" MinHeight="20">
-            <Image/>
+        <Button Grid.Row="2" Grid.Column="3" Click="OnClick" Name="Field14" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
-        <Button Grid.Row="3" Grid.Column="2" Click="OnClick" ClickMode="Release" Tag="2" MinWidth="20" MinHeight="20">
-            <Image/>
+        <Button Grid.Row="2" Grid.Column="4" Click="OnClick" Name="Field16" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="0" Click="OnClick" Name="Field4" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="1" Click="OnClick" Name="Field6" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="2" Click="OnClick" Name="Field13" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="3" Click="OnClick" Name="Field20" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="3" Grid.Column="4" Click="OnClick" Name="Field22" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="0" Click="OnClick" Name="Field10" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="1" Click="OnClick" Name="Field12" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="2" Click="OnClick" Name="Field19" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="3" Click="OnClick" Name="Field21" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="4" Click="OnClick" Name="Field3" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="0" Click="OnClick" Name="Field11" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="1" Click="OnClick" Name="Field18" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="2" Click="OnClick" Name="Field25" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="3" Click="OnClick" Name="Field2" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Button>
+        <Button Grid.Row="5" Grid.Column="4" Click="OnClick" Name="Field9" ClickMode="Release" Tag="Empty" MinWidth="20" MinHeight="20">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Button>
         <Popup Grid.Row="0" Grid.Column="0" PlacementTarget="{Binding ElementName=RestartButton}" Placement="Mouse" 
                AllowsTransparency = "True" HorizontalOffset="1" VerticalOffset="1">
@@ -65,12 +121,12 @@
                 <Style TargetType="Popup">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding PlacementTarget.IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
-                            <Setter Property="IsOpen" Value="True"></Setter>
+                            <Setter Property="IsOpen" Value="True" />
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
             </Popup.Style>
-            <TextBlock Background="Wheat" Foreground="Black" Text="Перезапустить игру."></TextBlock>
+            <TextBlock Background="Wheat" Foreground="Black" Text="Перезапуск игры." />
         </Popup>
     </Grid>
 </Window>

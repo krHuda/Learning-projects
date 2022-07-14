@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
 using System.Windows.Media;
 using TicTacToe.Additions;
 using TicTacToe.Game;
 
 namespace TicTacToe
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         /// <summary>
         /// Стартовая функция.
@@ -26,28 +25,33 @@ namespace TicTacToe
         /// <summary>
         /// Метод вызваемый при нажатии на кнопку поля. Проверяет состояние игры и ставит крестик или нолик в зависимости от очерёдности хода.
         /// </summary>
-        /// <exception cref="NotImplementedException">Исключение, которое кидается в случае, если игра сломается и выйде за пределы возможного хода.</exception>
+        /// <exception cref="NotImplementedException">Исключение, которое кидается в случае, если игра сломается и выйдет за пределы возможного хода.</exception>
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var buttonIndex = Int32.Parse(button?.Tag.ToString()!);
-            var image = Elements.GetChildOfType<Image>(button);
-            if (image.Source != null)
+            if (sender is Button button)
             {
-                return;
+                var buttonIndex = Int32.Parse(new Regex("\\d+").Match(button.Name).ToString());
+                var image = Elements.GetChildOfType<Image>(button);
+                if (image.Source != null)
+                {
+                    return;
+                }
+                switch (GameLogic.GetTurn())
+                {
+                    case GameLogic.Turns.Cross:
+                        image.Source = Application.Current.Resources[Constants.Cross] as ImageSource;
+                        button.Tag = Constants.CrossSymbol;
+                        GameLogic.InputSymbol(buttonIndex,button.Tag.ToString());
+                        break;
+                    case GameLogic.Turns.Circle:
+                        image.Source = Application.Current.Resources[Constants.Circle] as ImageSource;
+                        button.Tag = Constants.CircleSymbol;
+                        GameLogic.InputSymbol(buttonIndex, button.Tag.ToString());
+                        break;
+                    default: throw new NotImplementedException("How did you get here? :)");
+                }
             }
-            switch (GameLogic.GetTurn())
-            {
-                case GameLogic.Turns.Cross:
-                    image.Source = Application.Current.Resources[Constants.Cross] as ImageSource;
-                    GameLogic.InputNumber(buttonIndex);
-                    break;
-                case GameLogic.Turns.Circle:
-                    image.Source = Application.Current.Resources[Constants.Circle] as ImageSource;
-                    GameLogic.InputNumber(buttonIndex);
-                    break;
-                default: throw new NotImplementedException("How did you get here? :)");
-            }
+
             if (GameLogic.IsGameFinished())
             {
                 EndGameMessageBox(sender, e);
@@ -62,16 +66,8 @@ namespace TicTacToe
         /// </summary>
         private void EndGameMessageBox(object sender, RoutedEventArgs e)
         {
-            var turn = GameLogic.GetTurn() == GameLogic.Turns.Cross ? "X" : "O";
-            string messageBoxText;
-            if (GameLogic.GetTurn() == GameLogic.Turns.Draw)
-            {
-                messageBoxText = "Ничья. \nПерезапустить?";
-            }
-            else
-            {
-                messageBoxText = $"Игра окончена. Выйграл: {turn}! \nПерезапустить?";
-            }
+            var turn = GameLogic.GetTurn() == GameLogic.Turns.Cross ? Constants.CrossSymbol : Constants.CircleSymbol;
+            var messageBoxText = GameLogic.GetTurn() == GameLogic.Turns.Draw ? "Ничья. \nПерезапустить?" : $"Игра окончена. Выйграл: {turn}! \nПерезапустить?";
             const MessageBoxButton messageBoxButton = MessageBoxButton.YesNo;
             const MessageBoxImage icon = MessageBoxImage.Question;
             const string caption = "Game over";
@@ -89,7 +85,7 @@ namespace TicTacToe
         /// <summary>
         /// Выводит в текстовом поле Turn очередь хода. 
         /// </summary>
-        private void SetTurnText() => Turn.Text = GameLogic.GetTurn() == GameLogic.Turns.Cross ? "Turn: X" : "Turn: O";
+        private void SetTurnText() => Turn.Text = GameLogic.GetTurn() == GameLogic.Turns.Cross ? Constants.TurnText + Constants.CrossSymbol : Constants.TurnText + Constants.CircleSymbol;
 
         /// <summary>
         /// Выводит в текстовом поле Score счёт побед крестика и нолика.
@@ -113,6 +109,10 @@ namespace TicTacToe
             foreach (var image in images.Where(image => image != null))
             {
                 image.Source = null;
+            }
+            foreach (var button in buttons.Where(tag => tag != null))
+            {
+                button.Tag = "Empty";
             }
             GameLogic.FinishGame();
             SetTurnText();

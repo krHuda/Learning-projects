@@ -14,14 +14,24 @@
         /// Слово нолик.
         /// </summary>
         public const string Circle = "Circle";
+
+        public const string CrossSymbol = "X";
+        
+        public const string CircleSymbol = "O";
+
+        public const string TurnText = "Turn: ";
+
+        public const int ExpectedRowCountForWin = 3;
         /// <summary>
         /// Эталон магического квадрата.
         /// </summary>
         public static readonly int[][] MagicNumbers = 
         {
-            new int[] { 8, 1, 6 },
-            new int[] { 3, 5, 7 },
-            new int[] { 4, 9, 2 },
+            new[] { 17, 24, 1, 8, 15 },
+            new[] { 23, 5, 7, 14, 16 },
+            new[] { 4, 6, 13, 20, 22 },
+            new[] { 10, 12, 19, 21, 3 },
+            new[] { 11, 18, 25, 2, 9 },
         };
     }
 }

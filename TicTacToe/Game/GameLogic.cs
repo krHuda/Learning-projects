@@ -13,8 +13,8 @@ namespace TicTacToe.Game
         /// </summary>
         static GameLogic()
         {
-            CrossSquare = new MagicSquare();
-            CircleSquare = new MagicSquare();
+            CrossSquare = new MagicSquare(Constants.CrossSymbol);
+            CircleSquare = new MagicSquare(Constants.CircleSymbol);
         }
         
         /// <summary>
@@ -32,11 +32,6 @@ namespace TicTacToe.Game
         /// </summary>
         private static MagicSquare CircleSquare { get; set; }
 
-        /// <summary>
-        /// Поле хранящее сумму сторон эталонного магического квадрата.
-        /// </summary>
-        private static readonly List<int> ExpectedSums = new MagicSquare().GetSums(Constants.MagicNumbers);
-        
         /// <summary>
         /// Счёт побед крестика.
         /// </summary>
@@ -57,19 +52,16 @@ namespace TicTacToe.Game
             Draw
         }
         
-        /// <summary>
-        /// Данный метод заполняет магический квадрат ходящего числом нажатой кнопки. 
-        /// </summary>
-        /// <param name="number">Уникальный индекс присвоенный каждой кнопке поля в соответствии с эталонным магическим квадратом.</param>
-        public static void InputNumber(int number)
+        
+        public static void InputSymbol(int index, string symbol)
         {
             if (Turn == Turns.Cross)
             {
-                CrossSquare.InputNumber(number);
+                CrossSquare.InputSymbol(index, symbol);
             }
             else
             {
-                CircleSquare.InputNumber(number);
+                CircleSquare.InputSymbol(index, symbol);
             }
         }
 
@@ -78,8 +70,8 @@ namespace TicTacToe.Game
         /// </summary>
         public static void FinishGame()
         {
-            CrossSquare = new MagicSquare();
-            CircleSquare = new MagicSquare();
+            CrossSquare = new MagicSquare(Constants.CrossSymbol);
+            CircleSquare = new MagicSquare(Constants.CircleSymbol);
         }
 
         /// <summary>
@@ -106,7 +98,7 @@ namespace TicTacToe.Game
         /// <returns>Состояние окончания игры: true или false.</returns>
         public static bool IsGameFinished()
         {
-            if (CrossSquare.IsAllIdentical(ExpectedSums) || CircleSquare.IsAllIdentical(ExpectedSums))
+            if (CrossSquare.IsWinConditionAchieved(Constants.ExpectedRowCountForWin) || CircleSquare.IsWinConditionAchieved(Constants.ExpectedRowCountForWin))
             {
                 FinishGame();
                 SetScore();
@@ -130,7 +122,7 @@ namespace TicTacToe.Game
             var crossField = CrossSquare.Square.ToList();
             var circleField = CircleSquare.Square.ToList();
             var gameField = ListsSum(crossField, circleField);
-            return !gameField.Contains(default);
+            return !(gameField.Count(c => c) > 0);
         }
 
         /// <summary>
@@ -156,14 +148,21 @@ namespace TicTacToe.Game
         /// <param name="crossField">Поле крестиков.</param>
         /// <param name="circleField">Поле ноликов.</param>
         /// <returns>Список содержащий все совершённые ходы, если таковые были.</returns>
-        private static List<int> ListsSum(List<int[]> crossField, List<int[]> circleField)
+        private static List<bool> ListsSum(List<string[]> crossField, List<string[]> circleField)
         {
-            var result = new List<int>();
+            var result = new List<bool>();
             for (var x = 0; x < crossField.Count; x++)
             {
-                for (var y = 0; y < circleField.Count; y++)
+                for (var y = 0; y < crossField.Count; y++)
                 {
-                    result.Add(crossField[x][y] + circleField[x][y]);
+                    if (crossField[x][y] == Constants.CrossSymbol || circleField[x][y] == Constants.CircleSymbol)
+                    {
+                        result.Add(false);
+                    }
+                    else
+                    {
+                        result.Add(true);
+                    }
                 }
             }
             return result;
